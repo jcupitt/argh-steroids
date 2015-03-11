@@ -45,6 +45,19 @@ class Asteroid(sprite.Sprite):
             other.angular_velocity = self.angular_velocity
             self.angular_velocity = x
 
+            # calculate point of impact for sparks
+            dx = self.position[0] - other.position[0]
+            dy = self.position[1] - other.position[1]
+            d2 = dx * dx + dy * dy 
+            d = math.sqrt(d2)
+            if d == 0:
+                d = 0.0001
+            u = dx / d
+            v = dy / d
+            impact = [other.position[0] + u * other.scale,
+                      other.position[1] + v * other.scale]
+            self.world.particle.sparks(impact, other.velocity)
+
             super(Asteroid, self).collide(other)
         elif isinstance(other, bullet.Bullet) or isinstance(other, ship.Ship):
             # asteroids can collide with bullets or bullets with asteroids ...

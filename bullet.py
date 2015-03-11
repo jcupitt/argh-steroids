@@ -31,11 +31,15 @@ class Bullet(sprite.Sprite):
             other.kill = True
             self.kill = True
             self.world.score += 1000
+            self.world.particle.explosion(20, 
+                                          other.position, other.velocity)
         elif isinstance(other, asteroid.Asteroid):
             other.kill = True
             self.kill = True
             self.world.score += other.scale
             self.world.n_asteroids -= 1
+            self.world.particle.explosion(other.scale / 3, 
+                                          other.position, other.velocity)
 
             if other.scale > 15:
                 n = random.randint(2, max(2, min(5, other.scale / 5)))
@@ -44,3 +48,5 @@ class Bullet(sprite.Sprite):
                                                      other.scale / n )
                     new_asteroid.position[0] = other.position[0]
                     new_asteroid.position[1] = other.position[1]
+                    new_asteroid.velocity[0] += other.velocity[0]
+                    new_asteroid.velocity[1] += other.velocity[1]

@@ -1,6 +1,8 @@
 
-import pygame
 import math
+import random
+
+import pygame
 
 import util
 import sprite
@@ -52,6 +54,8 @@ class Ship(sprite.Sprite):
         v = 0.02 * util.sin(self.angle)
         self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
 
+        self.world.particle.jet(self.position, self.velocity, self.angle)
+
     def fire(self):
         if self.reload_timer == 0:
             a = util.cos(self.angle)
@@ -79,10 +83,13 @@ class Ship(sprite.Sprite):
 
     def collide(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
+            self.world.particle.sparks(self.position, self.velocity)
             self.shields -= 1
-            self.regenerate_timer = 200 
+            self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
+                self.world.particle.explosion2(200, 
+                                               self.position, self.velocity)
 
         super(Ship, self).collide(other)
 
