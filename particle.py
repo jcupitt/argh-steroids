@@ -301,15 +301,15 @@ class Particle(object):
 
     def explosion2(self, n_points, position, velocity):
         for i in range(n_points):
-            delta = 360 / n_points
-            angle = i * delta + random.randint(-delta / 2, delta / 2)
+            delta = 360.0 / n_points
+            angle = i * delta + random.randint(int(-delta), int(delta))
             speed = random.random() * 4.0 
             self.add(position, 
                      [velocity[0] + speed * util.cos(angle),
                       velocity[1] + speed * util.sin(angle)],
                      n_colour - random.randint(1, 50), 
                      -1, 
-                     random.randint(50, 300))
+                     random.randint(50, 400))
 
     def sparks(self, position, velocity):
         n_points = 3

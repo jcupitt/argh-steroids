@@ -76,7 +76,7 @@ class Ship(sprite.Sprite):
 
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
         if self.regenerate_timer == 0 and self.shields < self.max_shields:
-            self.regenerate_timer = 200 
+            self.regenerate_timer = 500 
             self.shields += 1
 
         super(Ship, self).update()
@@ -88,7 +88,7 @@ class Ship(sprite.Sprite):
             self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
-                self.world.particle.explosion2(200, 
+                self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
 
         super(Ship, self).collide(other)

@@ -35,6 +35,9 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * Collision physics just exchanges the two velocities, we could do true
   billiard-ball collisions.
+
+* The wrap-around is rather crude. We could do collisions correctly on screen
+  edges and draw asteroids as they wrap.
  
 # Author
 
