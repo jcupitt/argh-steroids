@@ -21,6 +21,20 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * It's fast enough on a Raspberry-Pi 2. On my modest 
   laptop it can animate >300 asteroids at 60 fps.
+
+# Secret keys
+
+* Hold 'S' during level start animation to spawn extra asteroids for testing.
+
+* Hold 'I' during play to see object and FPS counts.
+
+# TODO
+
+* Collision detection is just touching circles, we could look at the geometry
+  as well to get pixel-perfect detection.
+
+* Collision physics just exchanges the two velocities, we could do true
+  billiard-ball collisions.
  
 # Author
 

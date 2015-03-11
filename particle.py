@@ -4,6 +4,7 @@ import pygame
 
 import util
 
+# stolen from a PET scanner
 colour_table = [[ 15, 0, 30 ],
                 [ 19, 0, 40 ],
                 [ 23, 0, 48 ],
@@ -354,5 +355,6 @@ class Particle(object):
         for part in self.particles:
             if part[0] > 0:
                 rect = [part[1], part[2], 3, 3]
-                self.surface.fill(colour_table[part[5]], rect)
+                colour = colour_table[part[5]]
+                self.surface.fill(colour, rect)
 

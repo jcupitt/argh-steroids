@@ -5,6 +5,7 @@ import math
 import util
 import sprite
 import particle
+import text
 
 class World(object):
     def __init__(self, surface):
@@ -19,14 +20,22 @@ class World(object):
         self.map_height = 1 + self.height / self.map_spacing
         self.score = 0
         self.n_asteroids = 0
+        self.text_y = 100
 
     def add(self, sprite):
         self.sprites.append(sprite)
 
-    def remove_all(self):
+    def text(self, string, scale = 10):
+        text.Character.string(self, string, 
+                              [self.width / 2, self.text_y], scale)
+        self.text_y += scale * 10
+
+    def reset(self):
         self.sprites = []
         self.n_asteroids = 0
         self.particle.remove_all()
+        self.text_y = 100
+        self.score = 0
 
     def update(self):
         for i in self.sprites:
