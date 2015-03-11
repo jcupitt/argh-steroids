@@ -13,8 +13,15 @@ class Asteroid(sprite.Sprite):
         super(Asteroid, self).__init__(world)
         world.n_asteroids += 1
 
-        self.position = [random.randint(0, world.width),
-                         random.randint(0, world.height)]
+        # spawn on a screen edge
+        if random.randint(0, 1) == 0:
+            x = random.randint(0, world.width)
+            y = random.randint(0, 1) * world.height
+        else:
+            x = random.randint(0, 1) * world.width
+            y = random.randint(0, world.height)
+        self.position = [x, y] 
+
         n_points = random.randint(5, 10)
         self.points = []
         for i in range(n_points):

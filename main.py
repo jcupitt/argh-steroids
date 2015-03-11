@@ -40,8 +40,7 @@ def main():
                           [world.width / 2, 1000], scale = 20)
 
     for i in range(4):
-        x = asteroid.Asteroid(world, random.randint(50, 100))
-        x.position[0] = 0
+        asteroid.Asteroid(world, random.randint(50, 100))
 
     clock = pygame.time.Clock()
     done = False
