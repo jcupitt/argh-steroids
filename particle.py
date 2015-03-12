@@ -257,6 +257,7 @@ class Particle(object):
         self.show_particles = True
 
         # a row of this array stores:
+        #
         # 0 - life .. down counter until death
         # 1 - x
         # 2 - y
@@ -268,6 +269,10 @@ class Particle(object):
 
         # keep an array of the indexes of free slots in the particle array
         self.free = []
+
+        # keep a hash of live slot indexes ... a hash so we can quickly add 
+        # and remove particles 
+        self.live = {}
 
     def show(self, show_particles):
         self.show_particles = show_particles
@@ -281,7 +286,9 @@ class Particle(object):
             del self.free[-1]
         else:
             self.particles.append([])
-            i = -1
+            i = len(self.particles) - 1
+
+        self.live[i] = i
 
         self.particles[i] = [life,
                              position[0], position[1], 
@@ -289,11 +296,12 @@ class Particle(object):
                              colour, colour_delta]
 
     def n_particles(self):
-        return len(self.particles) - len(self.free)
+        return len(self.live)
 
     def remove_all(self):
         self.particles = []
         self.free = []
+        self.live = {}
 
     def explosion(self, n_points, position, velocity):
         for i in range(n_points):
@@ -355,12 +363,14 @@ class Particle(object):
         if not self.show_particles:
             return
 
-        for i in range(len(self.particles)):
+        to_delete = []
+        for i in self.live:
             part = self.particles[i]
             if part[0] > 0:
                 part[0] -= 1
                 if part[0] == 0:
                     self.free.append(i)
+                    to_delete.append(i)
                     continue
 
                 part[1] += part[3]
@@ -371,13 +381,16 @@ class Particle(object):
                 part[5] += part[6]
                 part[5] %= n_colour
 
+        for i in to_delete:
+            del self.live[i]
+
     def draw(self):
         if not self.show_particles:
             return
 
-        for part in self.particles:
+        for i in self.live:
+            part = self.particles[i]
             if part[0] > 0:
                 rect = [part[1], part[2], 3, 3]
-                colour = colour_table[part[5]]
-                self.surface.fill(colour, rect)
+                pygame.draw.rect(self.surface, colour_table[part[5]], rect)
 
