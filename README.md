@@ -26,7 +26,7 @@ Install [pygame](http://pygame.org) and run `main.py`.
   to hack on.
 
 * It's fast enough on a Raspberry-Pi 2. On my modest laptop it can animate 
-  >200 asteroids and >5,000 particles at 60 fps.
+  more than 200 asteroids and more than 5,000 particles at 60 fps.
 
 # Secret keys
 
