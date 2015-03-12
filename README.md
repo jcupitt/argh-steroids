@@ -34,6 +34,9 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * Hold 'I' during play to see object and FPS counts.
 
+* Hold 'P' during play to toggle particles on and off. This can help framerate
+  on slower systems.
+
 # TODO
 
 * Collision detection is just touching circles, we could look at the geometry

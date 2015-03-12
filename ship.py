@@ -34,6 +34,7 @@ class Ship(sprite.Sprite):
         self.max_shields = 3
         self.shields = self.max_shields
         self.shield_tick = 0
+        self.jet_tick = 0
 
     def rotate_right(self):
         self.angle += 3
@@ -50,11 +51,14 @@ class Ship(sprite.Sprite):
         self.angle %= 360
 
     def thrust(self):
-        u = 0.02 * util.cos(self.angle)
-        v = 0.02 * util.sin(self.angle)
+        u = 0.1 * util.cos(self.angle)
+        v = 0.1 * util.sin(self.angle)
         self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
 
-        self.world.particle.jet(self.position, self.velocity, self.angle)
+        self.jet_tick -= 1
+        if self.jet_tick < 0:
+            self.jet_tick = 3
+            self.world.particle.jet(self.position, self.velocity, self.angle)
 
     def fire(self):
         if self.reload_timer == 0:

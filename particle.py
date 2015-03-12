@@ -254,6 +254,8 @@ class Particle(object):
         self.width = surface.get_width()
         self.height = surface.get_height()
 
+        self.show_particles = True
+
         # a row of this array stores:
         # 0 - life .. down counter until death
         # 1 - x
@@ -267,7 +269,13 @@ class Particle(object):
         # keep an array of the indexes of free slots in the particle array
         self.free = []
 
+    def show(self, show_particles):
+        self.show_particles = show_particles
+
     def add(self, position, velocity, colour, colour_delta, life):
+        if not self.show_particles:
+            return
+
         if len(self.free) > 0:
             i = self.free[-1]
             del self.free[-1]
@@ -331,7 +339,7 @@ class Particle(object):
         self.add([position[0] + 3 * u, position[1] + 3 * v],
                  [velocity[0] + u, velocity[1] + v],
                  random.randint(50, 200),
-                 random.randint(20, 30),
+                 random.randint(5, 10),
                  random.randint(20, 30))
 
     def starfield(self):
@@ -344,6 +352,9 @@ class Particle(object):
                      100000000)
 
     def update(self):
+        if not self.show_particles:
+            return
+
         for i in range(len(self.particles)):
             part = self.particles[i]
             if part[0] > 0:
@@ -361,6 +372,9 @@ class Particle(object):
                 part[5] %= n_colour
 
     def draw(self):
+        if not self.show_particles:
+            return
+
         for part in self.particles:
             if part[0] > 0:
                 rect = [part[1], part[2], 3, 3]

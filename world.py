@@ -35,6 +35,7 @@ class World(object):
         self.info = False
         self.fire = False
         self.spawn = False
+        self.show_particles = True
         self.any_key = False
 
         # the ship ... or none for no ship on screen
@@ -89,6 +90,9 @@ class World(object):
                     self.fire = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_s:
                     self.spawn = event.type == pygame.KEYDOWN
+                elif event.key == pygame.K_p:
+                    if event.type == pygame.KEYDOWN:
+                        self.show_particles = not self.show_particles
                 elif event.key == pygame.K_i:
                     self.info = event.type == pygame.KEYDOWN
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
@@ -96,6 +100,8 @@ class World(object):
                     self.thrust = event.type == pygame.MOUSEBUTTONDOWN
                 elif event.button == 1:
                     self.fire = event.type == pygame.MOUSEBUTTONDOWN
+
+        self.particle.show(self.show_particles)
 
         x, y = pygame.mouse.get_rel()
         self.rotate_by = x / 5.0
