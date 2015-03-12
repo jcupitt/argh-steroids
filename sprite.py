@@ -51,7 +51,9 @@ class Sprite(object):
             self.impact(other)
             other.impact(self)
 
-            self.collide(other)
+            # don't do the physics if either object is now dead
+            if not self.kill and not other.kill:
+                self.collide(other)
 
             break
 
@@ -60,9 +62,9 @@ class Sprite(object):
     def impact(self, other):
         pass
 
-    # this is triggered just once, so symmetric things happen in this
+    # this is triggered just once, so symmetric things happen in this, like
+    # physics
     def collide(self, other):
-        # exchange velocities
         x = other.velocity[0]
         other.velocity[0] = self.velocity[0]
         self.velocity[0] = x

@@ -10,6 +10,7 @@ import particle
 import text
 import alien
 import ship
+import asteroid
 
 class World(object):
     def __init__(self, surface):
@@ -36,7 +37,8 @@ class World(object):
         self.fire = False
         self.spawn = False
         self.show_particles = True
-        self.any_key = False
+        self.enter = False
+        self.next_level = False
 
         # the ship ... or none for no ship on screen
         self.player = None
@@ -45,10 +47,7 @@ class World(object):
         self.alien_time = random.randint(1000, 2000)
 
     def n_objects(self):
-        n_particles = self.particle.n_particles()
-        n_sprites = len(self.sprites)
-
-        return n_particles + n_sprites
+        return len(self.sprites)
 
     def reset(self):
         self.sprites = []
@@ -57,6 +56,10 @@ class World(object):
         self.text_y = 100
         self.score = 0
         self.player = None
+
+    def remove_asteroids(self):
+        self.sprites = [x for x in self.sprites 
+                        if not isinstance(x, asteroid.Asteroid)]
 
     def add(self, sprite):
         self.sprites.append(sprite)
@@ -76,8 +79,6 @@ class World(object):
                 self.quit = True 
 
             if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
-                self.any_key = event.type == pygame.KEYDOWN
-
                 if event.key == pygame.K_ESCAPE:
                     self.quit = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_LEFT:
@@ -90,11 +91,15 @@ class World(object):
                     self.fire = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_s:
                     self.spawn = event.type == pygame.KEYDOWN
+                elif event.key == pygame.K_n:
+                    self.next_level = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_p:
                     if event.type == pygame.KEYDOWN:
                         self.show_particles = not self.show_particles
                 elif event.key == pygame.K_i:
                     self.info = event.type == pygame.KEYDOWN
+                elif event.key == pygame.K_RETURN:
+                    self.enter = event.type == pygame.KEYDOWN
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 3:
                     self.thrust = event.type == pygame.MOUSEBUTTONDOWN

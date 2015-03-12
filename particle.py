@@ -310,7 +310,7 @@ class Particle(object):
                       velocity[1] + speed * util.sin(angle)],
                      n_colour - random.randint(1, 50), 
                      -1, 
-                     random.randint(50, 400))
+                     random.randint(50, 300))
 
     def sparks(self, position, velocity):
         n_points = 3
@@ -332,11 +332,11 @@ class Particle(object):
         self.add([position[0] + 3 * u, position[1] + 3 * v],
                  [velocity[0] + u, velocity[1] + v],
                  random.randint(50, 200),
-                 random.randint(5, 10),
+                 random.randint(20, 200),
                  random.randint(20, 30))
 
     def starfield(self):
-        for i in range(50):
+        for i in range(30):
             self.add([random.randint(0, self.width),
                       random.randint(0, self.height)],
                      [0, 0],

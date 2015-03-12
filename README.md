@@ -32,10 +32,12 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * Hold 'S' during level start animation to spawn extra asteroids for testing.
 
-* Hold 'I' during play to see object and FPS counts.
+* Hold 'I' to see object and FPS counts.
 
-* Hold 'P' during play to toggle particles on and off. This can help framerate
+* Press 'P' to toggle particles on and off. This can help the framerate
   on slower systems.
+
+* Press 'N' to skip to the next level. Handy for testing. 
 
 # TODO
 

@@ -27,7 +27,7 @@ class Asteroid(sprite.Sprite):
         self.points = []
         for i in range(n_points):
             angle = i * 360 / n_points + random.randint(-20, 20)
-            distance = random.random() / 2.0 + 0.5
+            distance = random.random() / 4.0 + 0.75
             self.points.append([distance * util.cos(angle), 
                                 distance * util.sin(angle)])
         self.velocity = [random.random() * max_speed * 2 - max_speed, 

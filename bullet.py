@@ -26,6 +26,11 @@ class Bullet(sprite.Sprite):
         if self.life == 0:
             self.kill = True
 
+    def collision(self, other):
+        # don't chain up, we don't want to exchange velocity or anything like
+        # that
+        pass
+
     def impact(self, other):
         if isinstance(other, alien.Alien):
             other.kill = True
