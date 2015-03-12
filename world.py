@@ -75,6 +75,8 @@ class World(object):
                 self.quit = True 
 
             if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                self.any_key = event.type == pygame.KEYDOWN
+
                 if event.key == pygame.K_ESCAPE:
                     self.quit = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_LEFT:
@@ -89,14 +91,11 @@ class World(object):
                     self.spawn = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_i:
                     self.info = event.type == pygame.KEYDOWN
-
-                self.any_key = event.type == pygame.KEYDOWN
-
-                if event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
-                    if event.button == 3:
-                        thrust = event.type == pygame.MOUSEBUTTONDOWN
-                    elif event.button == 1:
-                        fire = event.type == pygame.MOUSEBUTTONDOWN
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 3:
+                    self.thrust = event.type == pygame.MOUSEBUTTONDOWN
+                elif event.button == 1:
+                    self.fire = event.type == pygame.MOUSEBUTTONDOWN
 
         x, y = pygame.mouse.get_rel()
         self.rotate_by = x / 5.0
