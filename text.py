@@ -6,6 +6,8 @@ import random
 import util
 import sprite
 
+# character designs from https://github.com/rickwight/meteors, thank you rick
+
 # oh god why
 char_points = {
    '0':  [[-0.5, 0.25], [-0.25, 0.5], [-0.25, 0.5], [0.25, 0.5], [0.25, 0.5], [0.5, 0.25], [0.5, 0.25], [0.5, -0.25], [0.5, -0.25], [0.25, -0.5], [0.25, -0.5], [-0.25, -0.5], [-0.25, -0.5], [-0.5, -0.25], [-0.5, -0.25], [-0.5, 0.25], [-0.25, 0.5], [0.25, -0.5]], 

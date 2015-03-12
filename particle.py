@@ -334,6 +334,15 @@ class Particle(object):
                  random.randint(20, 30),
                  random.randint(20, 30))
 
+    def starfield(self):
+        for i in range(50):
+            self.add([random.randint(0, self.width),
+                      random.randint(0, self.height)],
+                     [0, 0],
+                     random.randint(50, 200),
+                     random.randint(1, 3),
+                     100000000)
+
     def update(self):
         for i in range(len(self.particles)):
             part = self.particles[i]

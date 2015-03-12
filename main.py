@@ -31,6 +31,7 @@ class Game(object):
 
         for i in range(4):
             asteroid.Asteroid(self.world, random.randint(50, 100))
+        self.world.particle.starfield()
 
         while not self.world.quit and not self.world.any_key:
             self.world.update()
@@ -138,6 +139,7 @@ class Game(object):
         while not self.world.quit:
             self.level = 1
             self.world.reset()
+            self.world.particle.starfield()
 
             while not self.world.quit:
                 self.level_start()
