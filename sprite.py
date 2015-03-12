@@ -22,8 +22,8 @@ class Sprite(object):
         c = -b
         d = a
 
-        self.screen_points = [[a * x + b * y + self.position[0], 
-                               c * x + d * y + self.position[1]] 
+        self.screen_points = [[int(a * x + b * y + self.position[0]), 
+                               int(c * x + d * y + self.position[1])] 
                               for x, y in self.points]
 
     def test_collisions(self, possible_sprites):

@@ -94,7 +94,8 @@ def draw_string(surface, string, colour, scale, position,
         y -= c * kern * len(string) / 2.0
     for ch in string:
         if ch in char_points:
-            screen = [[-a * u - b * v + x, -c * u - d * v + y] 
+            screen = [[int(-a * u - b * v + x), 
+                       int(-c * u - d * v + y)] 
                       for u, v in char_points[ch]]
             for i in range(0, len(screen), 2):
                 pygame.draw.line(surface, util.WHITE, screen[i], screen[i + 1])

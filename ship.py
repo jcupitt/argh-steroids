@@ -104,8 +104,8 @@ class Ship(sprite.Sprite):
             c = -b
             d = a
 
-            screen_points = [[a * x + b * y + self.position[0], 
-                              c * x + d * y + self.position[1]] 
+            screen_points = [[int(a * x + b * y + self.position[0]), 
+                              int(c * x + d * y + self.position[1])] 
                               for x, y in self.shield_points]
 
             for i in range(0, len(screen_points), 2):
