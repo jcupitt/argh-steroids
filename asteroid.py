@@ -7,6 +7,7 @@ import util
 import sprite
 import bullet
 import ship
+import alien
 
 class Asteroid(sprite.Sprite):
     def __init__(self, world, scale):
@@ -58,8 +59,4 @@ class Asteroid(sprite.Sprite):
                       other.position[1] + v * other.scale]
             self.world.particle.sparks(impact, other.velocity)
 
-            super(Asteroid, self).collide(other)
-        elif isinstance(other, bullet.Bullet) or isinstance(other, ship.Ship):
-            # asteroids can collide with bullets or bullets with asteroids ...
-            # handle these cases in the other classes
-            other.collide(self)
+        super(Asteroid, self).collide(other)

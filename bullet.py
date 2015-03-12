@@ -26,7 +26,7 @@ class Bullet(sprite.Sprite):
         if self.life == 0:
             self.kill = True
 
-    def collide(self, other):
+    def impact(self, other):
         if isinstance(other, alien.Alien):
             other.kill = True
             self.kill = True

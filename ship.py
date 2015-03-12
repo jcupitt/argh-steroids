@@ -85,7 +85,7 @@ class Ship(sprite.Sprite):
 
         super(Ship, self).update()
 
-    def collide(self, other):
+    def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
             self.world.particle.sparks(self.position, self.velocity)
             self.shields -= 1
@@ -95,7 +95,7 @@ class Ship(sprite.Sprite):
                 self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
 
-        super(Ship, self).collide(other)
+        super(Ship, self).impact(other)
 
     def draw(self):
         super(Ship, self).draw()

@@ -35,6 +35,11 @@ class Alien(sprite.Sprite):
             self.direction_timer = random.randint(10, 50)
             self.random_velocity()
 
+        if self.angle > 0:
+            self.angle -= 1
+        elif self.angle < 0:
+            self.angle += 1
+
         if self.direction == 1 and self.position[0] > self.world.width - 10:
             self.kill = True
         elif self.direction == -1 and self.position[0] < 10:
@@ -42,8 +47,6 @@ class Alien(sprite.Sprite):
 
         super(Alien, self).update()
 
-    def collide(self, other):
-        if isinstance(other, bullet.Bullet) or isinstance(other, ship.Ship):
-            # aliens can collide with bullets or bullets with aliens ...
-            # handle these cases in the other class
-            other.collide(self)
+    def impact(self, other):
+        self.angle = random.randint(-90, 90)
+        super(Alien, self).impact(other)

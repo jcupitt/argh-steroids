@@ -10,21 +10,12 @@ class Sprite(object):
         self.position = [0, 0]
         self.velocity = [0, 0]
         self.points = []
-        self.screen_points = []
         self.kill = False
         self.tested_collision = False
         self.continuous = True
+        self.scale = 10
+        self.angle = 0
         world.add(self)
-
-    def transform(self):
-        a = self.scale * util.cos(self.angle)
-        b = self.scale * -util.sin(self.angle)
-        c = -b
-        d = a
-
-        self.screen_points = [[int(a * x + b * y + self.position[0]), 
-                               int(c * x + d * y + self.position[1])] 
-                              for x, y in self.points]
 
     def test_collisions(self, possible_sprites):
         for other in possible_sprites:
@@ -55,11 +46,21 @@ class Sprite(object):
             other.position[0] += u * overlap 
             other.position[1] += v * overlap
 
-            # tell the objects they have collided
+            # tell the objects they have collided ... both objects need to be
+            # told
+            self.impact(other)
+            other.impact(self)
+
             self.collide(other)
 
             break
 
+    # this method is triggered for both objects involved in the collision ... do
+    # asymmetric things like bullets blowing up aliens
+    def impact(self, other):
+        pass
+
+    # this is triggered just once, so symmetric things happen in this
     def collide(self, other):
         # exchange velocities
         x = other.velocity[0]
@@ -77,14 +78,20 @@ class Sprite(object):
         self.position[1] %= self.world.height
 
     def draw(self):
-        # need to update screen-space points
-        self.transform()
+        a = self.scale * util.cos(self.angle)
+        b = self.scale * -util.sin(self.angle)
+        c = -b
+        d = a
+
+        screen_points = [[int(a * x + b * y + self.position[0]), 
+                          int(c * x + d * y + self.position[1])] 
+                         for x, y in self.points]
 
         if self.continuous:
             pygame.draw.lines(self.world.surface, util.WHITE, True, 
-                              self.screen_points)
+                              screen_points)
         else:
-            for i in range(0, len(self.screen_points), 2):
+            for i in range(0, len(screen_points), 2):
                 pygame.draw.line(self.world.surface, util.WHITE, 
-                                 self.screen_points[i], 
-                                 self.screen_points[i + 1])
+                                 screen_points[i], 
+                                 screen_points[i + 1])

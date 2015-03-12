@@ -1,10 +1,10 @@
-
 import pygame
 import math
 import random
 
 import util
 import sprite
+import alien
 
 # character designs from https://github.com/rickwight/meteors, thank you rick
 
@@ -60,9 +60,9 @@ class Character(sprite.Sprite):
         self.angular_velocity = 0
         self.continuous = False
 
-    def collide(self, other):
+    def impact(self, other):
         self.angular_velocity = random.random() * 2 - 1
-        super(Character, self).collide(other)
+        super(Character, self).impact(other)
 
     def update(self):
         if abs(self.angular_velocity) > 0.01:
