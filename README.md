@@ -19,6 +19,9 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * Particle system for explosions.
 
+* Small, simple code, only 1,200 lines for evrything, it should be easy to 
+  hack on.
+
 * It's fast enough on a Raspberry-Pi 2. On my modest 
   laptop it can animate >300 asteroids at 60 fps.
 
