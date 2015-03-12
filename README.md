@@ -4,6 +4,9 @@ Asteroids-like game using pygame.
 
 Install [pygame](http://pygame.org) and run `main.py`.
 
+![Start screen](/screenshots/start_screen.png)
+![In play](/screenshots/play.png)
+
 # Features
 
 * Asteroids bump off each other. It uses a map to make collision detection
