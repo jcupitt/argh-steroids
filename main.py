@@ -30,7 +30,7 @@ class Game(object):
         self.world.add_text('ANY KEY TO START', scale = 20)
 
         for i in range(4):
-            asteroid.Asteroid(self.world, random.randint(50, 100))
+            asteroid.Asteroid(self.world, random.randint(50, 100), 1)
         self.world.particle.starfield()
 
         while not self.world.quit and not self.world.any_key:
@@ -64,7 +64,9 @@ class Game(object):
 
             self.world.update()
             if self.world.spawn:
-                asteroid.Asteroid(self.world, random.randint(50, 100))
+                asteroid.Asteroid(self.world, 
+                                  random.randint(75, 100), 
+                                  self.level)
 
             self.surface.fill(util.BLACK)
             self.draw_hud()
@@ -145,8 +147,10 @@ class Game(object):
                 self.level_start()
 
                 self.world.add_player()
-                for i in range(2 ** self.level):
-                    asteroid.Asteroid(self.world, random.randint(75, 100))
+                for i in range(self.level * 2):
+                    asteroid.Asteroid(self.world, 
+                                      random.randint(75, 100), 
+                                      self.level)
 
                 self.play_level()
 

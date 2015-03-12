@@ -256,7 +256,7 @@ class Particle(object):
 
         self.show_particles = True
 
-        # a row of this array stores:
+        # a row of this hash stores:
         #
         # 0 - life .. down counter until death
         # 1 - x
@@ -265,14 +265,8 @@ class Particle(object):
         # 4 - v  vertical component of velocity
         # 5 - colour index ... int index into colour array above
         # 6 - colour delta ... add this to index each update
-        self.particles = []
-
-        # keep an array of the indexes of free slots in the particle array
-        self.free = []
-
-        # keep a hash of live slot indexes ... a hash so we can quickly add 
-        # and remove particles 
-        self.live = {}
+        self.particles = {}
+        self.index = 0
 
     def show(self, show_particles):
         self.show_particles = show_particles
@@ -281,27 +275,18 @@ class Particle(object):
         if not self.show_particles:
             return
 
-        if len(self.free) > 0:
-            i = self.free[-1]
-            del self.free[-1]
-        else:
-            self.particles.append([])
-            i = len(self.particles) - 1
-
-        self.live[i] = i
-
-        self.particles[i] = [life,
-                             position[0], position[1], 
-                             velocity[0], velocity[1],
-                             colour, colour_delta]
+        particle = [life,
+                    position[0], position[1], 
+                    velocity[0], velocity[1],
+                    colour, colour_delta]
+        self.particles[self.index] = particle
+        self.index += 1
 
     def n_particles(self):
-        return len(self.live)
+        return len(self.particles)
 
     def remove_all(self):
-        self.particles = []
-        self.free = []
-        self.live = {}
+        self.particles = {}
 
     def explosion(self, n_points, position, velocity):
         for i in range(n_points):
@@ -363,14 +348,13 @@ class Particle(object):
         if not self.show_particles:
             return
 
-        to_delete = []
-        for i in self.live:
+        keys = self.particles.keys()
+        for i in keys:
             part = self.particles[i]
             if part[0] > 0:
                 part[0] -= 1
                 if part[0] == 0:
-                    self.free.append(i)
-                    to_delete.append(i)
+                    del self.particles[i]
                     continue
 
                 part[1] += part[3]
@@ -381,16 +365,12 @@ class Particle(object):
                 part[5] += part[6]
                 part[5] %= n_colour
 
-        for i in to_delete:
-            del self.live[i]
-
     def draw(self):
         if not self.show_particles:
             return
 
-        for i in self.live:
+        for i in self.particles:
             part = self.particles[i]
-            if part[0] > 0:
-                rect = [part[1], part[2], 3, 3]
-                pygame.draw.rect(self.surface, colour_table[part[5]], rect)
+            rect = [part[1], part[2], 3, 3]
+            pygame.draw.rect(self.surface, colour_table[part[5]], rect)
 

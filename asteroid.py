@@ -10,7 +10,7 @@ import ship
 import alien
 
 class Asteroid(sprite.Sprite):
-    def __init__(self, world, scale):
+    def __init__(self, world, scale, max_speed):
         super(Asteroid, self).__init__(world)
         world.n_asteroids += 1
 
@@ -30,7 +30,8 @@ class Asteroid(sprite.Sprite):
             distance = random.random() / 2.0 + 0.5
             self.points.append([distance * util.cos(angle), 
                                 distance * util.sin(angle)])
-        self.velocity = [random.random() * 2 - 1, random.random() * 2 - 1]
+        self.velocity = [random.random() * max_speed * 2 - max_speed, 
+                         random.random() * max_speed * 2 - max_speed]
         self.angle = 0
         self.scale = scale
         self.angular_velocity = random.random() * 4 - 2

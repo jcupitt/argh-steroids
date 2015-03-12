@@ -45,7 +45,7 @@ class Bullet(sprite.Sprite):
                 n = random.randint(2, max(2, min(5, other.scale / 5)))
                 for i in range(n):
                     new_asteroid = asteroid.Asteroid(self.world, 
-                                                     other.scale / n )
+                                                     other.scale / n, 1)
                     new_asteroid.position[0] = other.position[0]
                     new_asteroid.position[1] = other.position[1]
                     new_asteroid.velocity[0] += other.velocity[0]

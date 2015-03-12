@@ -42,8 +42,7 @@ class World(object):
         self.player = None
 
         # countdown timer until next alien
-        #self.alien_time = random.randint(1000, 2000)
-        self.alien_time = 10
+        self.alien_time = random.randint(1000, 2000)
 
     def n_objects(self):
         n_particles = self.particle.n_particles()
