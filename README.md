@@ -41,6 +41,8 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 # TODO
 
+* There's no sound. 
+
 * Collision detection is just touching circles, we could look at the geometry
   as well to get pixel-perfect detection.
 
