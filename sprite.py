@@ -44,7 +44,9 @@ class Sprite(object):
 
             # displace by overlap in that direction
             other.position[0] += u * overlap 
+            other.position[0] %= self.world.width
             other.position[1] += v * overlap
+            other.position[1] %= self.world.height
 
             # tell the objects they have collided ... both objects need to be
             # told

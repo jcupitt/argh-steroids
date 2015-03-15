@@ -1,6 +1,7 @@
 
 import math
 import random
+import sys
 
 import pygame
 
@@ -142,8 +143,8 @@ class World(object):
 
         # 100 is the max size of the asteroids we make
         map_spacing = 100
-        map_width = 1 + self.width / map_spacing
-        map_height = 1 + self.height / map_spacing
+        map_width = int(math.ceil(float(self.width) / map_spacing))
+        map_height = int(math.ceil(float(self.height) / map_spacing))
         world_map = []
         for x in range(map_width):
             map_row = [[] for y in range(map_height)]
@@ -153,21 +154,14 @@ class World(object):
             i.tested_collision = False
             x = int(i.position[0] / map_spacing)
             y = int(i.position[1] / map_spacing)
-            x_min = max(0, x - 1)
-            x_max = min(map_width - 1, x + 1)
-            y_min = max(0, y - 1)
-            y_max = min(map_height - 1, y + 1)
-            for a in range(x_min, x_max + 1):
-                for b in range(y_min, y_max + 1):
-                    world_map[a][b].append(i)
+            for a in range(x - 1, x + 2):
+                for b in range(y - 1, y + 2):
+                    world_map[a % map_width][b % map_height].append(i)
 
         for i in self.sprites:
             x = int(i.position[0] / map_spacing)
             y = int(i.position[1] / map_spacing)
-            x = min(max(x, 0), map_width - 1)
-            y = min(max(y, 0), map_height - 1)
-            possible_sprites = world_map[x][y]
-            i.test_collisions(possible_sprites)
+            i.test_collisions(world_map[x][y])
 
             # now we've tested i against everything it could possibly touch, 
             # we no longer need to test anything against i
