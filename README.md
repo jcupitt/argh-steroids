@@ -51,6 +51,8 @@ Install [pygame](http://pygame.org) and run `main.py`.
 
 * The wrap-around is rather crude. We could do collisions correctly on screen
   edges and draw asteroids as they wrap.
+
+* Python2 only, it would be easy to make it work with both.
  
 # Author
 
