@@ -19,10 +19,6 @@ class World(object):
         self.height = surface.get_height()
         self.sprites = []
         self.particle = particle.Particle(surface)
-        self.world_map = []
-        self.map_spacing = 100
-        self.map_width = 1 + self.width / self.map_spacing
-        self.map_height = 1 + self.height / self.map_spacing
         self.score = 0
         self.n_asteroids = 0
         self.text_y = 100
@@ -139,29 +135,38 @@ class World(object):
 
         self.sprites = [x for x in self.sprites if not x.kill]
 
-        self.world_map = []
-        for x in range(self.map_width):
-            map_row = [[] for y in range(self.map_height)]
-            self.world_map.append(map_row)
+        # split the world into a map of 100x100 squares, put a note in each
+        # square of each sprite which intersects with that square ... then when
+        # we test for collisions, we only need to test against the sprites in
+        # that map square
+
+        # 100 is the max size of the asteroids we make
+        map_spacing = 100
+        map_width = 1 + self.width / map_spacing
+        map_height = 1 + self.height / map_spacing
+        world_map = []
+        for x in range(map_width):
+            map_row = [[] for y in range(map_height)]
+            world_map.append(map_row)
 
         for i in self.sprites:
             i.tested_collision = False
-            x = int(i.position[0] / self.map_spacing)
-            y = int(i.position[1] / self.map_spacing)
+            x = int(i.position[0] / map_spacing)
+            y = int(i.position[1] / map_spacing)
             x_min = max(0, x - 1)
-            x_max = min(self.map_width - 1, x + 1)
+            x_max = min(map_width - 1, x + 1)
             y_min = max(0, y - 1)
-            y_max = min(self.map_height - 1, y + 1)
+            y_max = min(map_height - 1, y + 1)
             for a in range(x_min, x_max + 1):
                 for b in range(y_min, y_max + 1):
-                    self.world_map[a][b].append(i)
+                    world_map[a][b].append(i)
 
         for i in self.sprites:
-            x = int(i.position[0] / self.map_spacing)
-            y = int(i.position[1] / self.map_spacing)
-            x = min(max(x, 0), self.map_width - 1)
-            y = min(max(y, 0), self.map_height - 1)
-            possible_sprites = self.world_map[x][y]
+            x = int(i.position[0] / map_spacing)
+            y = int(i.position[1] / map_spacing)
+            x = min(max(x, 0), map_width - 1)
+            y = min(max(y, 0), map_height - 1)
+            possible_sprites = world_map[x][y]
             i.test_collisions(possible_sprites)
 
             # now we've tested i against everything it could possibly touch, 
