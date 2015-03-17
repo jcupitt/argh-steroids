@@ -4,6 +4,9 @@ Asteroids-like game using pygame.
 
 Install [pygame](http://pygame.org) and run `main.py`.
 
+Alternatively, there's a (WebGL 
+version)[http://jcupitt.github.io/argh-steroids-webgl].
+
 ![Start screen](/screenshots/start_screen.png)
 ![In play](/screenshots/play.png)
 
