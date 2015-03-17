@@ -18,6 +18,9 @@ class Sprite(object):
         world.add(self)
 
     def test_collisions(self, possible_sprites):
+        width = self.world.width
+        height = self.world.height
+
         for other in possible_sprites:
             if other == self:
                 continue
@@ -26,6 +29,26 @@ class Sprite(object):
 
             dx = self.position[0] - other.position[0]
             dy = self.position[1] - other.position[1]
+
+            # we need to do wrap-around testing
+            #
+            # we know that possible_sprites is only other sprites in the
+            # immediate neighbourhood, therefore if dx > half screen width,
+            # then this and other must be on opposite sides of the screen and
+            # must be possibly colliding via warp-around
+            #
+            # in this case, notionally move down by a screen width 
+
+            if dx > width / 2:
+                dx -= width
+            elif dx < -width / 2:
+                dx += width
+
+            if dy > height / 2:
+                dy -= height
+            elif dy < -height / 2:
+                dy += height
+
             d2 = dx * dx + dy * dy 
             t = self.scale + other.scale
             t2 = t * t
@@ -44,9 +67,9 @@ class Sprite(object):
 
             # displace by overlap in that direction
             other.position[0] += u * overlap 
-            other.position[0] %= self.world.width
+            other.position[0] %= width
             other.position[1] += v * overlap
-            other.position[1] %= self.world.height
+            other.position[1] %= height
 
             # tell the objects they have collided ... both objects need to be
             # told
