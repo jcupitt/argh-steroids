@@ -289,9 +289,9 @@ class Particle(object):
         self.particles = {}
 
     def explosion(self, n_points, position, velocity):
-        for i in range(n_points):
+        for i in range(int(n_points)):
             delta = 360 / n_points
-            angle = i * delta + random.randint(-delta / 2, delta / 2)
+            angle = i * delta + random.randint(int(-delta / 2), int(delta / 2))
             speed = random.random() * 2.0 
             self.add(position, 
                      [velocity[0] + speed * util.cos(angle),
@@ -301,7 +301,7 @@ class Particle(object):
                      random.randint(50, 100))
 
     def explosion2(self, n_points, position, velocity):
-        for i in range(n_points):
+        for i in range(int(n_points)):
             delta = 360.0 / n_points
             angle = i * delta + random.randint(int(-delta), int(delta))
             speed = random.random() * 4.0 
@@ -315,7 +315,7 @@ class Particle(object):
     def sparks(self, position, velocity):
         n_points = 3
         delta = 360 / n_points
-        for i in range(n_points):
+        for i in range(int(n_points)):
             angle = i * delta + random.randint(-delta / 2, delta / 2)
             speed = random.random() * 2.0 
             self.add(position, 
@@ -347,14 +347,15 @@ class Particle(object):
     def update(self):
         if not self.show_particles:
             return
-
+        
+        particles2 = self.particles.copy()
         keys = self.particles.keys()
         for i in keys:
-            part = self.particles[i]
+            part = particles2[i]
             if part[0] > 0:
                 part[0] -= 1
                 if part[0] == 0:
-                    del self.particles[i]
+                    del particles2[i]
                     continue
 
                 part[1] += part[3]
@@ -364,6 +365,7 @@ class Particle(object):
 
                 part[5] += part[6]
                 part[5] %= n_colour
+        self.particles = particles2
 
     def draw(self):
         if not self.show_particles:
