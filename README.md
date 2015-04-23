@@ -1,6 +1,7 @@
 # Argh-steroids
 
 Asteroids-like game using pygame. 
+(Python 3 compatible)
 
 Install [pygame](http://pygame.org) and run `main.py`.
 
