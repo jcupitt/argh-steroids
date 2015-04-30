@@ -79,12 +79,16 @@ class Ship(sprite.Sprite):
         self.shield_tick += 1
 
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
-        if self.regenerate_timer == 0 and self.shields < self.max_shields:
-            self.regenerate_timer = 500 
-            self.shields += 1
+#         if self.regenerate_timer == 0 and self.shields < self.max_shields:
+#             self.regenerate_timer = 500 
+#             self.shields += 1
+#             temporarily copied to sheildOn
 
         super(Ship, self).update()
 
+    def sheildOn(self):
+        print('f pressed')
+    
     def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
             self.world.particle.sparks(self.position, self.velocity)
@@ -94,9 +98,9 @@ class Ship(sprite.Sprite):
                 self.kill = True
                 self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
-
+        
         super(Ship, self).impact(other)
-
+    
     def draw(self):
         super(Ship, self).draw()
 
