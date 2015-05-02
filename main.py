@@ -77,6 +77,7 @@ class Game(object):
 
             self.surface.fill(util.BLACK)
             self.draw_hud()
+
             self.draw_info()
             start_animation_time -= 1
             t = float(start_animation_time) / start_animation_frames

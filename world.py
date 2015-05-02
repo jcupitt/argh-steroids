@@ -99,7 +99,7 @@ class World(object):
                     self.enter = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_f:
                     if self.player:
-                        self.player.sheildOn()
+                        self.player.shieldOn()
                     print("f")
                      
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:

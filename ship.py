@@ -35,7 +35,7 @@ class Ship(sprite.Sprite):
         self.shields = self.max_shields
         self.shield_tick = 0
         self.jet_tick = 0
-
+        self.shieldTimer = 0
     def rotate_right(self):
         self.angle += 3
         if self.angle > 360:
@@ -77,18 +77,27 @@ class Ship(sprite.Sprite):
     def update(self):
         self.reload_timer = max(0, self.reload_timer - 1)
         self.shield_tick += 1
-
+        
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
+        self.shieldTimer = max(0,self.shieldTimer - 1)
+        if self.shieldTimer < 1 and self.shields > 0:
+            self.shields = self.shields - 1
 #         if self.regenerate_timer == 0 and self.shields < self.max_shields:
 #             self.regenerate_timer = 500 
 #             self.shields += 1
-#             temporarily copied to sheildOn
+#             temporarily copied to shieldOn
 
         super(Ship, self).update()
 
-    def sheildOn(self):
+    def shieldOn(self):
         print('f pressed')
-    
+        if self.regenerate_timer == 0 and self.shields < self.max_shields:
+            self.regenerate_timer = 500 
+            self.shields += 1
+            if self.shields > 0:
+                self.shieldTimer = 500
+                
+            
     def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
             self.world.particle.sparks(self.position, self.velocity)
