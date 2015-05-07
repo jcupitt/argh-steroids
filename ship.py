@@ -10,8 +10,14 @@ import bullet
 import alien
 import asteroid
 
+#used for sounds
+import os
+from pygame import mixer
+
 class Ship(sprite.Sprite):
     def __init__(self, world):
+        self.mixer = mixer
+        mixer.init()
         super(Ship, self).__init__(world)
 
         self.position = [world.width / 2, 
@@ -62,16 +68,19 @@ class Ship(sprite.Sprite):
 
     def fire(self):
         if self.reload_timer == 0:
+            sound = self.mixer.Sound(os.path.join("sounds","ship_fire.wav"))
+            sound.play()
+            
             a = util.cos(self.angle)
             b = util.sin(self.angle)
-
+            
             projectile = bullet.Bullet(self.world)
             projectile.position = [self.position[0] + self.scale * a,
                                    self.position[1] + self.scale * b]
             projectile.velocity = [a * 7.0 + self.velocity[0],
                                    b * 7.0 + self.velocity[1]]
             projectile.angle = self.angle
-
+            
             self.reload_timer = 10
 
     def update(self):
@@ -81,21 +90,17 @@ class Ship(sprite.Sprite):
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
         self.shieldTimer = max(0,self.shieldTimer - 1)
         if self.shieldTimer < 1 and self.shields > 0:
-            self.shields = self.shields - 1
-#         if self.regenerate_timer == 0 and self.shields < self.max_shields:
-#             self.regenerate_timer = 500 
-#             self.shields += 1
-#             temporarily copied to shieldOn
-
+            self.shields = self.shields - 3
         super(Ship, self).update()
 
     def shieldOn(self):
-        print('f pressed')
         if self.regenerate_timer == 0 and self.shields < self.max_shields:
-            self.regenerate_timer = 500 
-            self.shields += 1
+            #change shield regeneration time bellow.                              
+            # actually regenerate time is  the difference between"regenerate_timer" and "shieldTimer"
+            self.regenerate_timer = 1000 
+            self.shields += 3
             if self.shields > 0:
-                self.shieldTimer = 500
+                self.shieldTimer = 500 #change time shield is on here
                 
             
     def impact(self, other):
