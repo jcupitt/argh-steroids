@@ -8,9 +8,11 @@ Install [pygame](http://pygame.org) and run `main.py`.
 Alternatively, there's a [WebGL 
 version](http://jcupitt.github.io/argh-steroids-webgl).
 
+Sounds From [FreeSound.org](https://www.freesound.org/)
+
 ![Start screen](/screenshots/start_screen.png)
 ![In play](/screenshots/play.png)
-Sounds From [FreeSound.org](https://www.freesound.org/)
+
 
 # Changes from Original
 
