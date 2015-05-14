@@ -10,6 +10,16 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 
 ![Start screen](/screenshots/start_screen.png)
 ![In play](/screenshots/play.png)
+Sounds From [FreeSound.org](https://www.freesound.org/)
+
+# Changes from Original
+
+* Added sound (on TODO list)
+
+* Made python 3 compatible (on TODO list)
+
+* changes shield behaviour (not on TODO list)
+Shield now uses a key press and stays on for a period of time before turning off. There is a cool down between key presses
 
 # Features
 
@@ -44,9 +54,6 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 * Press 'N' to skip to the next level. Handy for testing. 
 
 # TODO
-
-* There's no sound. 
-
 * Collision detection is just touching circles, we could look at the geometry
   as well to get pixel-perfect detection.
 
@@ -54,8 +61,6 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
   billiard-ball collisions.
 
 * The wrap-around is rather crude. We could draw sprites as they wrap.
-
-* Python2 only, it would be easy to make it work with both.
  
 # Author
 

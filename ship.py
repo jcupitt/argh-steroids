@@ -1,3 +1,7 @@
+"""
+Thruster sound from https://www.freesound.org/people/dayOfDagon/sounds/164855/
+Fire sound from https://www.freesound.org/people/CGEffex/sounds/96692/
+"""
 
 import math
 import random
@@ -60,7 +64,7 @@ class Ship(sprite.Sprite):
         u = 0.1 * util.cos(self.angle)
         v = 0.1 * util.sin(self.angle)
         self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
-
+                
         self.jet_tick -= 1
         if self.jet_tick < 0:
             self.jet_tick = 3
@@ -68,8 +72,8 @@ class Ship(sprite.Sprite):
 
     def fire(self):
         if self.reload_timer == 0:
-            sound = self.mixer.Sound(os.path.join("sounds","ship_fire.wav"))
-            sound.play()
+            ship_fireSound = self.mixer.Sound(os.path.join("sounds","ship_fire.wav"))
+            ship_fireSound.play()
             
             a = util.cos(self.angle)
             b = util.sin(self.angle)
@@ -110,6 +114,9 @@ class Ship(sprite.Sprite):
             self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
+                print("playing explosion sound")
+                explosionSound = self.mixer.Sound(os.path.join("sounds","bit_bomber2.ogg"))
+                explosionSound.play()
                 self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
         
