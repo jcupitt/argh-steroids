@@ -100,8 +100,6 @@ class World(object):
                 elif event.key == pygame.K_f:
                     if self.player:
                         self.player.shieldOn()
-                    print("f")
-                     
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 3:
                     self.thrust = event.type == pygame.MOUSEBUTTONDOWN

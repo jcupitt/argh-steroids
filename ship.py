@@ -1,6 +1,7 @@
 """
 Thruster sound from https://www.freesound.org/people/dayOfDagon/sounds/164855/
 Fire sound from https://www.freesound.org/people/CGEffex/sounds/96692/
+
 """
 
 import math
@@ -23,6 +24,10 @@ class Ship(sprite.Sprite):
         self.mixer = mixer
         mixer.init()
         super(Ship, self).__init__(world)
+        
+        #0 is default shield behavior 1 is modified
+        self.shieldMode = 1
+    
 
         self.position = [world.width / 2, 
                          world.height / 2]
@@ -64,7 +69,7 @@ class Ship(sprite.Sprite):
         u = 0.1 * util.cos(self.angle)
         v = 0.1 * util.sin(self.angle)
         self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
-                
+            
         self.jet_tick -= 1
         if self.jet_tick < 0:
             self.jet_tick = 3
@@ -92,13 +97,18 @@ class Ship(sprite.Sprite):
         self.shield_tick += 1
         
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
-        self.shieldTimer = max(0,self.shieldTimer - 1)
-        if self.shieldTimer < 1 and self.shields > 0:
-            self.shields = self.shields - 3
+        
+        if self.shieldMode == 1:
+            self.shieldTimer = max(0,self.shieldTimer - 1)
+            if self.shieldTimer < 1 and self.shields > 0:
+                self.shields = self.shields - 3
         super(Ship, self).update()
+        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shieldMode == 0:
+            self.regenerate_timer = 500 
+            self.shields += 1
 
     def shieldOn(self):
-        if self.regenerate_timer == 0 and self.shields < self.max_shields:
+        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shieldMode == 1:
             #change shield regeneration time bellow.                              
             # actually regenerate time is  the difference between"regenerate_timer" and "shieldTimer"
             self.regenerate_timer = 1000 
@@ -106,7 +116,6 @@ class Ship(sprite.Sprite):
             if self.shields > 0:
                 self.shieldTimer = 500 #change time shield is on here
                 
-            
     def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
             self.world.particle.sparks(self.position, self.velocity)
@@ -114,7 +123,6 @@ class Ship(sprite.Sprite):
             self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
-                print("playing explosion sound")
                 explosionSound = self.mixer.Sound(os.path.join("sounds","bit_bomber2.ogg"))
                 explosionSound.play()
                 self.world.particle.explosion2(300, 
