@@ -21,7 +21,9 @@ Sounds From [FreeSound.org](https://www.freesound.org/)
 * Made python 3 compatible (on TODO list)
 
 * changes shield behaviour (not on TODO list)
-Shield now uses a key press and stays on for a period of time before turning off. There is a cool down between key presses
+Shield mode 1 uses a key press and stays on for a period of time before turning off. There is a cool down between key presses
+(0 for original shield mode)
+User can change SHIELDBEHAVIOR with the variable on line 23 in ship
 
 # Features
 

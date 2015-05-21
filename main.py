@@ -9,7 +9,9 @@ import util
 import asteroid
 import text
 import world
+import ship
 
+SHIELDMODE_info = {0:"ALWAYS ON",1:"KEY PRESS"}
 class Game(object):
     def __init__(self, surface):
         self.surface = surface
@@ -25,6 +27,9 @@ class Game(object):
                          util.WHITE, 10, [10, 20])
         text.draw_string(self.surface, "LEVEL %d" % self.level, 
                          util.WHITE, 10, [10, 40])
+        text.draw_string(self.surface, "SHIELD MODE - %s" % SHIELDMODE_info[ship.SHIELDMODE], 
+                         util.WHITE, 5, [self.width-290, self.height-10
+                         ])        
 
     def start_screen(self):
         self.world.add_text('ARGH ITS THE ASTEROIDS', scale = 20)

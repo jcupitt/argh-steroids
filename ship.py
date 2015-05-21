@@ -19,14 +19,17 @@ import asteroid
 import os
 from pygame import mixer
 
+#global variable for shield behavior 
+SHIELDMODE = 0
+
 class Ship(sprite.Sprite):
     def __init__(self, world):
         self.mixer = mixer
         mixer.init()
         super(Ship, self).__init__(world)
         
-        #0 is default shield behavior 1 is modified
-        self.shieldMode = 1
+        #0 is default shield behavior, 1 is modified
+        self.shieldMode = SHIELDMODE
     
 
         self.position = [world.width / 2, 
@@ -108,6 +111,7 @@ class Ship(sprite.Sprite):
             self.shields += 1
 
     def shieldOn(self):
+        #function only for moodified shield behavior that uses key press
         if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shieldMode == 1:
             #change shield regeneration time bellow.                              
             # actually regenerate time is  the difference between"regenerate_timer" and "shieldTimer"
