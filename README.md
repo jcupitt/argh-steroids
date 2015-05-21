@@ -14,16 +14,14 @@ Sounds From [FreeSound.org](https://www.freesound.org/)
 ![In play](/screenshots/play.png)
 
 
-# Changes from Original
+# Changes from Original (added by Pierce Lally)
 
-* Added sound (on TODO list)
+* Added sounds (on TODO list)
 
 * Made python 3 compatible (on TODO list)
 
-* changes shield behaviour (not on TODO list)
-Shield mode 1 uses a key press and stays on for a period of time before turning off. There is a cool down between key presses
-(0 for original shield mode)
-User can change SHIELDBEHAVIOR with the variable on line 23 in ship
+* Option for "conventional" shield behaviour (not on TODO list)
+Shield mode 1 uses a key press ("F") and stays on for a period of time before turning off. There is a cool down between key presses. Use 0 for author's original shield mode. User can select SHIELDBEHAVIOR with the global variable on line 23 in ship.py.
 
 # Features
 
