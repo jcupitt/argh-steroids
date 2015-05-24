@@ -141,7 +141,7 @@ class World(object):
         # we test for collisions, we only need to test against the sprites in
         # that map square
 
-        # 100 is the max size of the asteroids we make
+        # 100 is the max radius of the asteroids we make
         map_spacing = 100
         map_width = int(math.ceil(float(self.width) / map_spacing))
         map_height = int(math.ceil(float(self.height) / map_spacing))
@@ -152,15 +152,15 @@ class World(object):
 
         for i in self.sprites:
             i.tested_collision = False
-            x = int(i.position[0] / map_spacing)
-            y = int(i.position[1] / map_spacing)
+            x = int(i.position[0] / map_spacing) % map_width
+            y = int(i.position[1] / map_spacing) % map_height
             for a in range(x - 1, x + 2):
                 for b in range(y - 1, y + 2):
                     world_map[a % map_width][b % map_height].append(i)
 
         for i in self.sprites:
-            x = int(i.position[0] / map_spacing)
-            y = int(i.position[1] / map_spacing)
+            x = int(i.position[0] / map_spacing) % map_width
+            y = int(i.position[1] / map_spacing) % map_height
             i.test_collisions(world_map[x][y])
 
             # now we've tested i against everything it could possibly touch, 
