@@ -36,16 +36,6 @@ class Ship(sprite.Sprite):
         self.shield_tick = 0
         self.jet_tick = 0
 
-    def rotate_right(self):
-        self.angle += 3
-        if self.angle > 360:
-            self.angle -= 360
-
-    def rotate_left(self):
-        self.angle -= 3
-        if self.angle < 0:
-            self.angle += 360
-
     def rotate_by(self, angle):
         self.angle += angle
         self.angle %= 360

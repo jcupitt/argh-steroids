@@ -184,7 +184,7 @@ def main():
     font = pygame.font.Font(None, 16)
 
     surface = pygame.display.set_mode([0, 0], pygame.FULLSCREEN)
-    #surface = pygame.display.set_mode([1900, 1000])
+    #surface = pygame.display.set_mode([800, 600])
     pygame.mouse.set_visible(False)
     pygame.display.set_caption("Argh, it's the Asteroids!!")
 
