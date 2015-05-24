@@ -4,6 +4,7 @@ import random
 import math
 
 import pygame
+from pygame import mixer
 
 import util
 import asteroid
@@ -188,6 +189,7 @@ class Game(object):
 
 def main():
     pygame.init()
+    mixer.init()
 
     font = pygame.font.Font(None, 16)
 

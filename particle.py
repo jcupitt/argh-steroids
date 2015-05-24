@@ -1,6 +1,9 @@
 
+import os
 import random
+
 import pygame
+from pygame import mixer
 
 import util
 
@@ -268,6 +271,8 @@ class Particle(object):
         self.particles = {}
         self.index = 0
 
+        self.explosion_sound = mixer.Sound(os.path.join("sounds", "bit_bomber2.ogg"))
+
     def show(self, show_particles):
         self.show_particles = show_particles
 
@@ -289,6 +294,7 @@ class Particle(object):
         self.particles = {}
 
     def explosion(self, n_points, position, velocity):
+        self.explosion_sound.play()
         for i in range(int(n_points)):
             delta = 360 / n_points
             angle = i * delta + random.randint(int(-delta / 2), int(delta / 2))
@@ -301,6 +307,7 @@ class Particle(object):
                      random.randint(50, 100))
 
     def explosion2(self, n_points, position, velocity):
+        self.explosion_sound.play()
         for i in range(int(n_points)):
             delta = 360.0 / n_points
             angle = i * delta + random.randint(int(-delta), int(delta))

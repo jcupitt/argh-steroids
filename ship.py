@@ -4,20 +4,18 @@ Fire sound from https://www.freesound.org/people/CGEffex/sounds/96692/
 
 """
 
+import os
 import math
 import random
 
 import pygame
+from pygame import mixer
 
 import util
 import sprite
 import bullet
 import alien
 import asteroid
-
-# used for sounds
-import os
-from pygame import mixer
 
 # default shield behavior 
 # 0 is old regenerating shield behavior, 1 is manual shields
@@ -26,7 +24,6 @@ SHIELDMODE = 0
 class Ship(sprite.Sprite):
     def __init__(self, world):
         super(Ship, self).__init__(world)
-
 
         self.position = [world.width / 2, 
                          world.height / 2]
@@ -52,10 +49,7 @@ class Ship(sprite.Sprite):
         self.shield_timer = 0
         self.shield_mode = SHIELDMODE
 
-        self.mixer = mixer
-        mixer.init()
-        self.fire_sound = self.mixer.Sound(os.path.join("sounds", "ship_fire.wav"))
-        self.explosion_sound = self.mixer.Sound(os.path.join("sounds","bit_bomber2.ogg"))
+        self.fire_sound = mixer.Sound(os.path.join("sounds", "ship_fire.wav"))
 
     def rotate_by(self, angle):
         self.angle += angle
@@ -90,29 +84,31 @@ class Ship(sprite.Sprite):
     def update(self):
         self.reload_timer = max(0, self.reload_timer - 1)
         self.shield_tick += 1
-    
-        self.regenerate_timer = max(0, self.regenerate_timer - 1)
 
-        if self.shield_mode == 1:
+        if self.shield_mode == 0:
+            self.regenerate_timer = max(0, self.regenerate_timer - 1)
+            if self.regenerate_timer == 0 and self.shields < self.max_shields 
+                self.regenerate_timer = 500 
+                self.shields += 1
+        elif self.shield_mode == 1:
             self.shield_timer = max(0,self.shield_timer - 1)
             if self.shield_timer < 1 and self.shields > 0:
-                self.shields = self.shields - 3
+                self.shields -= 3
+
         super(Ship, self).update()
-        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shield_mode == 0:
-            self.regenerate_timer = 500 
-            self.shields += 1
 
     # used for manual shields 
     def shield_on(self):
-        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shield_mode == 1:
-            # change shield regeneration time bellow.                              
-            # actually regenerate time is  the difference
-            # between"regenerate_timer" and "shield_timer"
-            self.regenerate_timer = 1000 
-            self.shields += 3
-            if self.shields > 0:
-                self.shield_timer = 500 #change time shield is on here
-                
+        if self.shield_mode == 1:
+            if self.regenerate_timer == 0 and self.shields < self.max_shields 
+                # change shield regeneration time below
+                # actually regenerate time is  the difference
+                # between "regenerate_timer" and "shield_timer"
+                self.regenerate_timer = 1000 
+                self.shields += 3
+                if self.shields > 0:
+                    self.shield_timer = 500 #change time shield is on here
+
     def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
             self.world.particle.sparks(self.position, self.velocity)
@@ -120,7 +116,6 @@ class Ship(sprite.Sprite):
             self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
-                self.explosion_sound.play()
                 self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
 
