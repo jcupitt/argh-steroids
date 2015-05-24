@@ -1,27 +1,13 @@
 # Argh-steroids
 
-Asteroids-like game using pygame. 
-(Python 3 compatible)
-
+Asteroids-like game using pygame. Python 3 compatible.
 Install [pygame](http://pygame.org) and run `main.py`.
 
 Alternatively, there's a [WebGL 
 version](http://jcupitt.github.io/argh-steroids-webgl).
 
-Sounds From [FreeSound.org](https://www.freesound.org/)
-
 ![Start screen](/screenshots/start_screen.png)
 ![In play](/screenshots/play.png)
-
-
-# Changes from Original (added by Pierce Lally)
-
-* Added sounds (on TODO list)
-
-* Made python 3 compatible (on TODO list)
-
-* Option for "conventional" shield behaviour (not on TODO list)
-Shield mode 1 uses a key press ("F") and stays on for a period of time before turning off. There is a cool down between key presses. Use 0 for author's original shield mode. User can select SHIELDBEHAVIOR with the global variable on line 23 in ship.py.
 
 # Features
 
@@ -56,6 +42,16 @@ Shield mode 1 uses a key press ("F") and stays on for a period of time before tu
 * Press 'N' to skip to the next level. Handy for testing. 
 
 # TODO
+
+* More sounds, audio on/off.
+
+* Can we make sound less laggy? There's a long pause between pressing fire and
+  the shot sound being played, for example. Perhaps we should manage audio 
+  channel allocation ourselves and have one channel for ship, two for
+  explosions, one for music, and so on.
+
+* Have a key to change shield behaviour on the start-screen.
+
 * Collision detection is just touching circles, we could look at the geometry
   as well to get pixel-perfect detection.
 
@@ -63,7 +59,27 @@ Shield mode 1 uses a key press ("F") and stays on for a period of time before tu
   billiard-ball collisions.
 
 * The wrap-around is rather crude. We could draw sprites as they wrap.
- 
-# Author
 
-John Cupitt
+# Changes
+
+John Cupitt, 24/5/15
+
+* Copy sounds from webgl version.
+
+* Added annoying background music.
+
+Pierce Lally, 21/5/15
+
+* Added sounds.
+
+* Made python 3 compatible.
+
+* Option for "conventional" shield behaviour.  Shield mode 1 uses a key
+  press ("F") and stays on for a period of time before turning off. There
+  is a cool down between key presses. Use 0 for author's original shield
+  mode. User can select SHIELDBEHAVIOR with the global variable on line
+  23 in ship.py.
+
+# Authors
+
+John Cupitt, Pierce Lally
