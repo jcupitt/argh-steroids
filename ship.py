@@ -49,7 +49,7 @@ class Ship(sprite.Sprite):
         self.shield_timer = 0
         self.shield_mode = SHIELDMODE
 
-        self.fire_sound = mixer.Sound(os.path.join("sounds", "ship_fire.wav"))
+        self.fire_sound = mixer.Sound(os.path.join("sounds", "shot.ogg"))
 
     def rotate_by(self, angle):
         self.angle += angle

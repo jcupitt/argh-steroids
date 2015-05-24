@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import os
 import random
 import math
 
@@ -190,6 +191,8 @@ class Game(object):
 def main():
     pygame.init()
     mixer.init()
+    background_music = mixer.Sound(os.path.join("sounds", "hoarse_space_cadet.ogg"))
+    background_music.play(-1)
 
     font = pygame.font.Font(None, 16)
 

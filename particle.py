@@ -271,7 +271,8 @@ class Particle(object):
         self.particles = {}
         self.index = 0
 
-        self.explosion_sound = mixer.Sound(os.path.join("sounds", "bit_bomber2.ogg"))
+        self.explosion1_sound = mixer.Sound(os.path.join("sounds", "planet_crush.ogg"))
+        self.explosion2_sound = mixer.Sound(os.path.join("sounds", "ship_crush.ogg"))
 
     def show(self, show_particles):
         self.show_particles = show_particles
@@ -294,7 +295,7 @@ class Particle(object):
         self.particles = {}
 
     def explosion(self, n_points, position, velocity):
-        self.explosion_sound.play()
+        self.explosion1_sound.play()
         for i in range(int(n_points)):
             delta = 360 / n_points
             angle = i * delta + random.randint(int(-delta / 2), int(delta / 2))
@@ -307,7 +308,7 @@ class Particle(object):
                      random.randint(50, 100))
 
     def explosion2(self, n_points, position, velocity):
-        self.explosion_sound.play()
+        self.explosion2_sound.play()
         for i in range(int(n_points)):
             delta = 360.0 / n_points
             angle = i * delta + random.randint(int(-delta), int(delta))
