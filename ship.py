@@ -87,7 +87,7 @@ class Ship(sprite.Sprite):
 
         if self.shield_mode == 0:
             self.regenerate_timer = max(0, self.regenerate_timer - 1)
-            if self.regenerate_timer == 0 and self.shields < self.max_shields 
+            if self.regenerate_timer == 0 and self.shields < self.max_shields:
                 self.regenerate_timer = 500 
                 self.shields += 1
         elif self.shield_mode == 1:
@@ -100,7 +100,7 @@ class Ship(sprite.Sprite):
     # used for manual shields 
     def shield_on(self):
         if self.shield_mode == 1:
-            if self.regenerate_timer == 0 and self.shields < self.max_shields 
+            if self.regenerate_timer == 0 and self.shields < self.max_shields:
                 # change shield regeneration time below
                 # actually regenerate time is  the difference
                 # between "regenerate_timer" and "shield_timer"
