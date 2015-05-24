@@ -1,12 +1,27 @@
 # Argh-steroids
 
 Asteroids-like game using pygame. 
+(Python 3 compatible)
 
-Install [pygame](http://pygame.org) and run `main.py`.  Alternatively, there's 
-a [WebGL version](http://jcupitt.github.io/argh-steroids-webgl).
+Install [pygame](http://pygame.org) and run `main.py`.
+
+Alternatively, there's a [WebGL 
+version](http://jcupitt.github.io/argh-steroids-webgl).
+
+Sounds From [FreeSound.org](https://www.freesound.org/)
 
 ![Start screen](/screenshots/start_screen.png)
 ![In play](/screenshots/play.png)
+
+
+# Changes from Original (added by Pierce Lally)
+
+* Added sounds (on TODO list)
+
+* Made python 3 compatible (on TODO list)
+
+* Option for "conventional" shield behaviour (not on TODO list)
+Shield mode 1 uses a key press ("F") and stays on for a period of time before turning off. There is a cool down between key presses. Use 0 for author's original shield mode. User can select SHIELDBEHAVIOR with the global variable on line 23 in ship.py.
 
 # Features
 
@@ -41,9 +56,6 @@ a [WebGL version](http://jcupitt.github.io/argh-steroids-webgl).
 * Press 'N' to skip to the next level. Handy for testing. 
 
 # TODO
-
-* There's no sound. 
-
 * Collision detection is just touching circles, we could look at the geometry
   as well to get pixel-perfect detection.
 
@@ -51,8 +63,6 @@ a [WebGL version](http://jcupitt.github.io/argh-steroids-webgl).
   billiard-ball collisions.
 
 * The wrap-around is rather crude. We could draw sprites as they wrap.
-
-* Python2 only, it would be easy to make it work with both.
  
 # Author
 

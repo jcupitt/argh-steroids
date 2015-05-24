@@ -97,6 +97,9 @@ class World(object):
                     self.info = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_RETURN:
                     self.enter = event.type == pygame.KEYDOWN
+                elif event.key == pygame.K_f:
+                    if self.player:
+                        self.player.shieldOn()
             elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.MOUSEBUTTONUP:
                 if event.button == 3:
                     self.thrust = event.type == pygame.MOUSEBUTTONDOWN

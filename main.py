@@ -9,7 +9,9 @@ import util
 import asteroid
 import text
 import world
+import ship
 
+SHIELDMODE_info = {0:"ALWAYS ON",1:"KEY PRESS"}
 class Game(object):
     def __init__(self, surface):
         self.surface = surface
@@ -18,12 +20,16 @@ class Game(object):
         self.height = self.world.height
         self.clock = pygame.time.Clock()
         self.level = 1
+    
 
     def draw_hud(self):
         text.draw_string(self.surface, "SCORE %d" % self.world.score, 
                          util.WHITE, 10, [10, 20])
         text.draw_string(self.surface, "LEVEL %d" % self.level, 
                          util.WHITE, 10, [10, 40])
+        text.draw_string(self.surface, "SHIELD MODE - %s" % SHIELDMODE_info[ship.SHIELDMODE], 
+                         util.WHITE, 5, [self.width-290, self.height-10
+                         ])        
 
     def start_screen(self):
         self.world.add_text('ARGH ITS THE ASTEROIDS', scale = 20)
@@ -77,6 +83,7 @@ class Game(object):
 
             self.surface.fill(util.BLACK)
             self.draw_hud()
+
             self.draw_info()
             start_animation_time -= 1
             t = float(start_animation_time) / start_animation_frames
