@@ -347,15 +347,14 @@ class Particle(object):
     def update(self):
         if not self.show_particles:
             return
-        
-        particles2 = self.particles.copy()
+
         keys = self.particles.keys()
         for i in keys:
-            part = particles2[i]
+            part = self.particles[i]
             if part[0] > 0:
                 part[0] -= 1
                 if part[0] == 0:
-                    del particles2[i]
+                    del self.particles[i]
                     continue
 
                 part[1] += part[3]
@@ -365,7 +364,6 @@ class Particle(object):
 
                 part[5] += part[6]
                 part[5] %= n_colour
-        self.particles = particles2
 
     def draw(self):
         if not self.show_particles:

@@ -11,7 +11,8 @@ import text
 import world
 import ship
 
-SHIELDMODE_info = {0:"ALWAYS ON",1:"KEY PRESS"}
+SHIELDMODE_info = {0: "ALWAYS ON", 1: "KEY PRESS"}
+
 class Game(object):
     def __init__(self, surface):
         self.surface = surface

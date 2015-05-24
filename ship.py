@@ -15,22 +15,18 @@ import bullet
 import alien
 import asteroid
 
-#used for sounds
+# used for sounds
 import os
 from pygame import mixer
 
-#global variable for shield behavior 
+# default shield behavior 
+# 0 is old regenerating shield behavior, 1 is manual shields
 SHIELDMODE = 0
 
 class Ship(sprite.Sprite):
     def __init__(self, world):
-        self.mixer = mixer
-        mixer.init()
         super(Ship, self).__init__(world)
-        
-        #0 is default shield behavior, 1 is modified
-        self.shieldMode = SHIELDMODE
-    
+
 
         self.position = [world.width / 2, 
                          world.height / 2]
@@ -53,7 +49,13 @@ class Ship(sprite.Sprite):
         self.shields = self.max_shields
         self.shield_tick = 0
         self.jet_tick = 0
-        self.shieldTimer = 0
+        self.shield_timer = 0
+        self.shield_mode = SHIELDMODE
+
+        self.mixer = mixer
+        mixer.init()
+        self.fire_sound = self.mixer.Sound(os.path.join("sounds", "ship_fire.wav"))
+        self.explosion_sound = self.mixer.Sound(os.path.join("sounds","bit_bomber2.ogg"))
 
     def rotate_by(self, angle):
         self.angle += angle
@@ -71,8 +73,7 @@ class Ship(sprite.Sprite):
 
     def fire(self):
         if self.reload_timer == 0:
-            ship_fireSound = self.mixer.Sound(os.path.join("sounds","ship_fire.wav"))
-            ship_fireSound.play()
+            self.fire_sound.play()
             
             a = util.cos(self.angle)
             b = util.sin(self.angle)
@@ -89,27 +90,28 @@ class Ship(sprite.Sprite):
     def update(self):
         self.reload_timer = max(0, self.reload_timer - 1)
         self.shield_tick += 1
-        
+    
         self.regenerate_timer = max(0, self.regenerate_timer - 1)
-        
-        if self.shieldMode == 1:
-            self.shieldTimer = max(0,self.shieldTimer - 1)
-            if self.shieldTimer < 1 and self.shields > 0:
+
+        if self.shield_mode == 1:
+            self.shield_timer = max(0,self.shield_timer - 1)
+            if self.shield_timer < 1 and self.shields > 0:
                 self.shields = self.shields - 3
         super(Ship, self).update()
-        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shieldMode == 0:
+        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shield_mode == 0:
             self.regenerate_timer = 500 
             self.shields += 1
 
-    def shieldOn(self):
-        #function only for moodified shield behavior that uses key press
-        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shieldMode == 1:
-            #change shield regeneration time bellow.                              
-            # actually regenerate time is  the difference between"regenerate_timer" and "shieldTimer"
+    # used for manual shields 
+    def shield_on(self):
+        if self.regenerate_timer == 0 and self.shields < self.max_shields and self.shield_mode == 1:
+            # change shield regeneration time bellow.                              
+            # actually regenerate time is  the difference
+            # between"regenerate_timer" and "shield_timer"
             self.regenerate_timer = 1000 
             self.shields += 3
             if self.shields > 0:
-                self.shieldTimer = 500 #change time shield is on here
+                self.shield_timer = 500 #change time shield is on here
                 
     def impact(self, other):
         if isinstance(other, alien.Alien) or isinstance(other, asteroid.Asteroid):
@@ -118,11 +120,10 @@ class Ship(sprite.Sprite):
             self.regenerate_timer = 1000 
             if self.shields < 0:
                 self.kill = True
-                explosionSound = self.mixer.Sound(os.path.join("sounds","bit_bomber2.ogg"))
-                explosionSound.play()
+                self.explosion_sound.play()
                 self.world.particle.explosion2(300, 
                                                self.position, self.velocity)
-        
+
         super(Ship, self).impact(other)
     
     def draw(self):
