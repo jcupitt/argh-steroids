@@ -1,9 +1,10 @@
-
+import os
 import math
 import random
 import sys
 
 import pygame
+from pygame import mixer
 
 import util
 import sprite
@@ -43,8 +44,19 @@ class World(object):
         # countdown timer until next alien
         self.alien_time = random.randint(1000, 2000)
 
+        self.music_playing = True
+        self.background_music = mixer.Sound(os.path.join("sounds", "hoarse_space_cadet.ogg"))
+        self.background_channel = pygame.mixer.Channel(0)
+        self.background_channel.play(self.background_music, loops = -1)
+
     def n_objects(self):
         return len(self.sprites)
+
+    def play_music(self, play):
+        if play:
+            self.background_channel.unpause()
+        else:
+            self.background_channel.pause()
 
     def reset(self):
         self.sprites = []
@@ -68,7 +80,7 @@ class World(object):
     def add_text(self, string, scale = 10):
         text.Character.string(self, string, 
                               [self.width / 2, self.text_y], scale)
-        self.text_y += scale * 10
+        self.text_y += scale * 5
 
     def update(self):
         for event in pygame.event.get(): 
@@ -90,6 +102,9 @@ class World(object):
                     self.spawn = event.type == pygame.KEYDOWN
                 elif event.key == pygame.K_n:
                     self.next_level = event.type == pygame.KEYDOWN
+                elif event.key == pygame.K_m and event.type == pygame.KEYDOWN:
+                    self.music_playing = not self.music_playing
+                    self.play_music(self.music_playing)
                 elif event.key == pygame.K_p:
                     if event.type == pygame.KEYDOWN:
                         self.show_particles = not self.show_particles

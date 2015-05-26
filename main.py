@@ -34,6 +34,7 @@ class Game(object):
         self.world.add_text('PRESS LEFT AND RIGHT TO ROTATE') 
         self.world.add_text('PRESS UP FOR THRUST')
         self.world.add_text('PRESS SPACE FOR FIRE')
+        self.world.add_text('PRESS M TO TURN MUSIC ON OR OFF')
         self.world.add_text('OR USE MOUSE CONTROLS') 
         self.world.add_text('WATCH OUT FOR ALLEN THE ALIEN')
         self.world.add_text('PRESS ENTER TO START', scale = 20)
@@ -197,12 +198,6 @@ def main():
     # we reserve the first four channels for us to allocate and let mixer pick
     # channels for explosions automatically
     mixer.set_reserved(4)
-
-    background_music = mixer.Sound(os.path.join("sounds", "hoarse_space_cadet.ogg"))
-    background_channel = pygame.mixer.Channel(0)
-    background_channel.play(background_music, loops = -1)
-
-    font = pygame.font.Font(None, 16)
 
     surface = pygame.display.set_mode([0, 0], pygame.FULLSCREEN)
     #surface = pygame.display.set_mode([800, 600])
