@@ -117,8 +117,7 @@ class World(object):
             self.rotate_by = 3
 
         if self.player:
-            if self.thrust:
-                self.player.thrust();
+            self.player.thrust(self.thrust)
 
             if self.fire:
                 self.player.fire();

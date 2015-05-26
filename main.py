@@ -13,8 +13,6 @@ import text
 import world
 import ship
 
-SHIELDMODE_info = {0: "ALWAYS ON", 1: "KEY PRESS"}
-
 class Game(object):
     def __init__(self, surface):
         self.surface = surface
@@ -23,16 +21,12 @@ class Game(object):
         self.height = self.world.height
         self.clock = pygame.time.Clock()
         self.level = 1
-    
 
     def draw_hud(self):
         text.draw_string(self.surface, "SCORE %d" % self.world.score, 
                          util.WHITE, 10, [10, 20])
         text.draw_string(self.surface, "LEVEL %d" % self.level, 
                          util.WHITE, 10, [10, 40])
-        text.draw_string(self.surface, "SHIELD MODE - %s" % SHIELDMODE_info[ship.SHIELDMODE], 
-                         util.WHITE, 5, [self.width-290, self.height-10
-                         ])        
 
     def start_screen(self):
         self.world.add_text('ARGH ITS THE ASTEROIDS', scale = 20)
@@ -191,8 +185,22 @@ class Game(object):
 def main():
     pygame.init()
     mixer.init()
+
+    # audio channel allocation:
+    # 
+    #   0 - background music
+    #   1 - ship engines
+    #   2 - ship guns
+    #   3 - alien
+    #   4 to 7 - explosions
+    # 
+    # we reserve the first four channels for us to allocate and let mixer pick
+    # channels for explosions automatically
+    mixer.set_reserved(4)
+
     background_music = mixer.Sound(os.path.join("sounds", "hoarse_space_cadet.ogg"))
-    background_music.play(-1)
+    background_channel = pygame.mixer.Channel(0)
+    background_channel.play(background_music, loops = -1)
 
     font = pygame.font.Font(None, 16)
 

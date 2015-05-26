@@ -1,7 +1,9 @@
-
-import pygame
+import os
 import math
 import random
+
+import pygame
+from pygame import mixer
 
 import util
 import sprite
@@ -25,6 +27,10 @@ class Alien(sprite.Sprite):
         self.direction_timer = random.randint(10, 50)
         self.random_velocity()
 
+        self.alien_sound = mixer.Sound(os.path.join("sounds", "alien_engine.ogg"))
+        self.alien_channel = pygame.mixer.Channel(3)
+        self.alien_channel.play(self.alien_sound, loops = -1)
+
     def random_velocity(self):
         self.velocity = [self.direction * (random.random() * 2 + 1), 
                          random.random() * 6 - 3]
@@ -46,6 +52,9 @@ class Alien(sprite.Sprite):
             self.kill = True
 
         super(Alien, self).update()
+
+        if self.kill:
+            self.alien_channel.fadeout(500)
 
     def impact(self, other):
         self.angle = random.randint(-90, 90)

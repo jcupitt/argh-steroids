@@ -11,7 +11,7 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 
 # Features
 
-* Asteroids bump off each other. It uses a map to make collision detection
+* Asteroids bounce off each other. It uses a map to make collision detection
   fast.
 
 * Your ship has a shield and you can bump into asteroids a few times. The
@@ -24,7 +24,7 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 
 * Particle system for explosions.
 
-* Small, simple code. It's only 1,200 lines for everything, it should be easy 
+* Small, simple code. It's only 1,300 lines for everything, it should be easy 
   to hack on.
 
 * It's fast enough on a Raspberry-Pi 2. On my modest laptop it can animate 
@@ -46,9 +46,7 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 * More sounds, audio on/off.
 
 * Can we make sound less laggy? There's a long pause between pressing fire and
-  the shot sound being played, for example. Perhaps we should manage audio 
-  channel allocation ourselves and have one channel for ship, two for
-  explosions, one for music, and so on.
+  the shot sound being played, for example. 
 
 * Have a key to change shield behaviour on the start-screen.
 

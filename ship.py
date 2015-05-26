@@ -1,9 +1,3 @@
-"""
-Thruster sound from https://www.freesound.org/people/dayOfDagon/sounds/164855/
-Fire sound from https://www.freesound.org/people/CGEffex/sounds/96692/
-
-"""
-
 import os
 import math
 import random
@@ -48,26 +42,41 @@ class Ship(sprite.Sprite):
         self.jet_tick = 0
         self.shield_timer = 0
         self.shield_mode = SHIELDMODE
+        self.engines = False
 
         self.fire_sound = mixer.Sound(os.path.join("sounds", "shot.ogg"))
+        self.engine_sound = mixer.Sound(os.path.join("sounds", "engine.ogg"))
+        self.fire_channel = pygame.mixer.Channel(2)
+        self.engine_channel = pygame.mixer.Channel(1)
 
     def rotate_by(self, angle):
         self.angle += angle
         self.angle %= 360
 
-    def thrust(self):
-        u = 0.1 * util.cos(self.angle)
-        v = 0.1 * util.sin(self.angle)
-        self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
+    # power is a bool for thrust on or off
+    def thrust(self, power):
+        # engine state changed?
+        if power != self.engines:
+            if power:
+                self.engine_channel.play(self.engine_sound, loops = -1)
+            else:
+                self.engine_channel.fadeout(500)
+            self.engines = power
+
+        if power:
+            u = 0.1 * util.cos(self.angle)
+            v = 0.1 * util.sin(self.angle)
+            self.velocity = [self.velocity[0] + u, self.velocity[1] + v]
             
-        self.jet_tick -= 1
-        if self.jet_tick < 0:
-            self.jet_tick = 3
-            self.world.particle.jet(self.position, self.velocity, self.angle)
+            self.jet_tick -= 1
+            if self.jet_tick < 0:
+                self.jet_tick = 3
+                self.world.particle.jet(self.position, self.velocity, self.angle)
 
     def fire(self):
         if self.reload_timer == 0:
-            self.fire_sound.play()
+            self.fire_channel.stop()
+            self.fire_channel.play(self.fire_sound)
             
             a = util.cos(self.angle)
             b = util.sin(self.angle)
