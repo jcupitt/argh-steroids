@@ -104,6 +104,9 @@ class Ship(sprite.Sprite):
             if self.shield_timer < 1 and self.shields > 0:
                 self.shields -= 3
 
+        if self.kill:
+            self.engine_channel.fadeout(500)
+
         super(Ship, self).update()
 
     # used for manual shields 

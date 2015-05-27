@@ -51,10 +51,10 @@ class Alien(sprite.Sprite):
         elif self.direction == -1 and self.position[0] < 10:
             self.kill = True
 
-        super(Alien, self).update()
-
         if self.kill:
             self.alien_channel.fadeout(500)
+
+        super(Alien, self).update()
 
     def impact(self, other):
         self.angle = random.randint(-90, 90)
