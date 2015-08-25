@@ -356,7 +356,7 @@ class Particle(object):
         if not self.show_particles:
             return
 
-        keys = self.particles.keys()
+        keys = list(self.particles.keys())
         for i in keys:
             part = self.particles[i]
             if part[0] > 0:
