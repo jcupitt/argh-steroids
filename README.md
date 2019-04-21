@@ -58,7 +58,11 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 
 * The wrap-around is rather crude. We could draw sprites as they wrap.
 
+* Gravity, grappling hook, bombs, etc.
+
 # Changes
+
+Text character designs taken from https://github.com/rickwight/meteors
 
 John Cupitt, 24/5/15
 
@@ -80,4 +84,4 @@ Pierce Lally, 21/5/15
 
 # Authors
 
-John Cupitt, Pierce Lally
+Rick Wight, John Cupitt, Pierce Lally
