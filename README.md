@@ -1,7 +1,7 @@
 # Argh-steroids
 
-Asteroids-like game using pygame. Python 3 compatible.
-Install [pygame](http://pygame.org) and run `main.py`.
+Asteroids-like game using pygame. Python3. Install 
+[pygame](http://pygame.org) and run `main.py`.
 
 Alternatively, there's a [WebGL 
 version](http://jcupitt.github.io/argh-steroids-webgl).
@@ -63,6 +63,10 @@ version](http://jcupitt.github.io/argh-steroids-webgl).
 # Changes
 
 Text character designs taken from https://github.com/rickwight/meteors
+
+John Cupitt, 26/10/25
+
+* Make it py3 only.
 
 John Cupitt, 24/5/15
 

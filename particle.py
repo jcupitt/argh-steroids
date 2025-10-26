@@ -1,4 +1,3 @@
-
 import os
 import random
 
@@ -324,7 +323,7 @@ class Particle(object):
         n_points = 3
         delta = 360 / n_points
         for i in range(int(n_points)):
-            angle = i * delta + random.randint(-delta / 2, delta / 2)
+            angle = i * delta + random.randint(int(-delta / 2), int(delta / 2))
             speed = random.random() * 2.0 
             self.add(position, 
                      [velocity[0] + speed * util.cos(angle),
