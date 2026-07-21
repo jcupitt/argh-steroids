@@ -1,7 +1,8 @@
 # Argh-steroids
 
-Asteroids-like game using pygame. Python3. Install 
-[pygame](http://pygame.org) and run `main.py`.
+Asteroids-like game using pygame. Python3. Install [pygame](http://pygame.org)
+and run `main.py`.  If you're on python 3.14 or later, you'll probably
+oeed [pygame-ce](https://pypi.org/project/pygame-ce).
 
 Alternatively, there's a [WebGL 
 version](http://jcupitt.github.io/argh-steroids-webgl).
